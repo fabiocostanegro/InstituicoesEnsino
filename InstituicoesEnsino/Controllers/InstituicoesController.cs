@@ -55,5 +55,10 @@ namespace InstituicoesEnsino.Controllers
             dbContext.SaveChanges();
             return RedirectToAction("Index");
         }
+        public IActionResult Details(long id)
+        {
+            Instituicao inst = dbContext.Instituicoes.Where(i => i.InstituicaoID == id).First();
+            return View(inst);
+        }
     }
 }
