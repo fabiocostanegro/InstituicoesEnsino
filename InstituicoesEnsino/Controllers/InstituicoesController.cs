@@ -43,5 +43,17 @@ namespace InstituicoesEnsino.Controllers
             dbContext.SaveChanges();
             return RedirectToAction("Index");
         }
+        public IActionResult Delete(long id)
+        {
+            Instituicao instituicao = dbContext.Instituicoes.Where(i => i.InstituicaoID == id).First();
+            return View(instituicao);
+        }
+        [HttpPost]
+        public IActionResult Delete(Instituicao instituicao)
+        {
+            dbContext.Instituicoes.Remove(instituicao);
+            dbContext.SaveChanges();
+            return RedirectToAction("Index");
+        }
     }
 }
