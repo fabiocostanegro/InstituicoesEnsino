@@ -18,5 +18,17 @@ namespace InstituicoesEnsino.Controllers
             List<Instituicao> instituicao = dbContext.Instituicoes.ToList();
             return View(instituicao);
         }
+        public IActionResult Create()
+        {
+            return View();
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Create(Instituicao novaInstituicao)
+        {
+            dbContext.Instituicoes.Add(novaInstituicao);
+            dbContext.SaveChanges();
+            return RedirectToAction("Index");
+        }
     }
 }
