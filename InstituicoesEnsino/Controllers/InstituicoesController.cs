@@ -53,6 +53,7 @@ namespace InstituicoesEnsino.Controllers
         {
             dbContext.Instituicoes.Remove(instituicao);
             dbContext.SaveChanges();
+            TempData["Message"] = "Instituição " + instituicao.Nome.ToUpper() + " foi removida";
             return RedirectToAction("Index");
         }
         public IActionResult Details(long id)
