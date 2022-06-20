@@ -1,4 +1,4 @@
-﻿using InstituicoesEnsino.Models;
+﻿using Modelo.Cadastros;
 using System.Linq;
 
 namespace InstituicoesEnsino.Data

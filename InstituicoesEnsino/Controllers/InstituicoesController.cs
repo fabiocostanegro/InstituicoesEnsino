@@ -1,5 +1,5 @@
 ﻿using InstituicoesEnsino.Data;
-using InstituicoesEnsino.Models;
+using Modelo.Cadastros;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Linq;

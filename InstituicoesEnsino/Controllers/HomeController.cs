@@ -1,4 +1,4 @@
-﻿using InstituicoesEnsino.Models;
+﻿using Modelo.Cadastros;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;

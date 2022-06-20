@@ -13,5 +13,8 @@
   <ItemGroup>
     <Folder Include="wwwroot\lib\" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Modelo\Modelo.csproj" />
+  </ItemGroup>
 
 </Project>
