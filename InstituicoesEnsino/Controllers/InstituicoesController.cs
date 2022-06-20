@@ -4,20 +4,22 @@ using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
+using InstituicoesEnsino.Data.DAL.Cadastros;
 
 namespace InstituicoesEnsino.Controllers
 {
     public class InstituicoesController : Controller
     {
         private Context dbContext;
+        private InstituicaoDAL dalInstituicao;
         public InstituicoesController(Context context)
         {
-            dbContext = context;    
+            dbContext = context;
+            dalInstituicao = new InstituicaoDAL(context);
         }
         public IActionResult Index()
         {
-            List<Instituicao> instituicao = dbContext.Instituicoes.ToList();
-            return View(instituicao);
+            return View(dalInstituicao.ObterInstituicoesClassificadasPorNome().ToList());
         }
         public IActionResult Create()
         {
