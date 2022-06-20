@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using InstituicoesEnsino.Models;
+using System.Linq;
 
 namespace InstituicoesEnsino.Data
 {
@@ -6,6 +7,7 @@ namespace InstituicoesEnsino.Data
     {
         public static void InicializarBancodeDados(Context dbContext)
         {
+            dbContext.Database.EnsureDeleted(); 
             dbContext.Database.EnsureCreated();
             InicializaInstituicoes(dbContext);
             InicializaDepartamentos(dbContext);
@@ -18,7 +20,15 @@ namespace InstituicoesEnsino.Data
                 return;
             else
             {
-                dbContext.Instituicoes.Add(new Models.Instituicao() { Nome = "Instituição teste", Endereco = "Rua das instituiçoes" });
+                var instituicoes = new Instituicao[]
+                {
+                    new Instituicao { Nome="UniParaná", Endereco="Paraná"},
+                    new Instituicao { Nome="UniAcre", Endereco="Acre"}
+                };
+                foreach (Instituicao i in instituicoes)
+                {
+                    dbContext.Instituicoes.Add(i);
+                }
                 dbContext.SaveChanges();
             }
         }
@@ -28,7 +38,15 @@ namespace InstituicoesEnsino.Data
                 return;
             else
             {
-                dbContext.Departamentos.Add(new Models.Departamento() { Nome = "Departamento Teste" });
+                var departamentos = new Departamento[]
+                {
+                    new Departamento { Nome="Ciência da Computação", InstituicaoID=1 },
+                    new Departamento { Nome="Ciência de Alimentos", InstituicaoID=2}
+                };
+                foreach (Departamento d in departamentos)
+                {
+                    dbContext.Departamentos.Add(d);
+                }
                 dbContext.SaveChanges();
             }
         }

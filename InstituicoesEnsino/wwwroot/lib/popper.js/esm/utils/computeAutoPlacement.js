@@ -2,6 +2,10 @@ import getVariation from "./getVariation.js";
 import { variationPlacements, basePlacements, placements as allPlacements } from "../enums.js";
 import detectOverflow from "./detectOverflow.js";
 import getBasePlacement from "./getBasePlacement.js";
+
+/*:: type OverflowsMap = { [ComputedPlacement]: number }; */
+
+/*;; type OverflowsMap = { [key in ComputedPlacement]: number }; */
 export default function computeAutoPlacement(state, options) {
   if (options === void 0) {
     options = {};
@@ -16,23 +20,13 @@ export default function computeAutoPlacement(state, options) {
       _options$allowedAutoP = _options.allowedAutoPlacements,
       allowedAutoPlacements = _options$allowedAutoP === void 0 ? allPlacements : _options$allowedAutoP;
   var variation = getVariation(placement);
-  var placements = variation ? flipVariations ? variationPlacements : variationPlacements.filter(function (placement) {
+  var placements = (variation ? flipVariations ? variationPlacements : variationPlacements.filter(function (placement) {
     return getVariation(placement) === variation;
-  }) : basePlacements;
-  var allowedPlacements = placements.filter(function (placement) {
+  }) : basePlacements).filter(function (placement) {
     return allowedAutoPlacements.indexOf(placement) >= 0;
-  });
+  }); // $FlowFixMe: Flow seems to have problems with two array unions...
 
-  if (allowedPlacements.length === 0) {
-    allowedPlacements = placements;
-
-    if (false) {
-      console.error(['Popper: The `allowedAutoPlacements` option did not allow any', 'placements. Ensure the `placement` option matches the variation', 'of the allowed placements.', 'For example, "auto" cannot be used to allow "bottom-start".', 'Use "auto-start" instead.'].join(' '));
-    }
-  } // $FlowFixMe[incompatible-type]: Flow seems to have problems with two array unions...
-
-
-  var overflows = allowedPlacements.reduce(function (acc, placement) {
+  var overflows = placements.reduce(function (acc, placement) {
     acc[placement] = detectOverflow(state, {
       placement: placement,
       boundary: boundary,

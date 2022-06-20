@@ -3,6 +3,7 @@ using InstituicoesEnsino.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.EntityFrameworkCore;
 
 namespace InstituicoesEnsino.Controllers
 {
@@ -58,7 +59,7 @@ namespace InstituicoesEnsino.Controllers
         }
         public IActionResult Details(long id)
         {
-            Instituicao inst = dbContext.Instituicoes.Where(i => i.InstituicaoID == id).First();
+            Instituicao inst = dbContext.Instituicoes.Include(d=>d.Departamentos).SingleOrDefault(i => i.InstituicaoID == id);
             return View(inst);
         }
     }
