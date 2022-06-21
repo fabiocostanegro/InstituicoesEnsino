@@ -6,20 +6,22 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using InstituicoesEnsino.Data.DAL.Cadastros;
 
 namespace InstituicoesEnsino.Controllers
 {
     public class DepartamentosController : Controller
     {
         private Context dbContext;
+        private DepartamentoDAL departamentoDal;
         public DepartamentosController(Context _dbContext)
         {
             dbContext = _dbContext;
+            departamentoDal = new DepartamentoDAL(_dbContext);
         }
         public IActionResult Index()
         {
-            List<Departamento> lista = dbContext.Departamentos.Include(i => i.Instituicao).OrderBy(c => c.Nome).ToList();
-            return View(lista);
+            return View(departamentoDal.ObterDepartamentoPorNome());
         }
         public IActionResult Create()
         {

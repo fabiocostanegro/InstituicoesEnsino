@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using InstituicoesEnsino.Data.DAL.Cadastros;
+using System.Threading.Tasks;
 
 namespace InstituicoesEnsino.Controllers
 {
@@ -17,6 +18,19 @@ namespace InstituicoesEnsino.Controllers
             dbContext = context;
             dalInstituicao = new InstituicaoDAL(context);
         }
+        private async Task<ActionResult> ObterInstituicaoPorId(long? id)
+        {
+            if (id == null)
+                return NotFound();
+            
+            var instituicao = await dalInstituicao.ObterInstituicaoPorId((long)id);
+            if (instituicao == null)
+                return NotFound();
+            
+            return View(instituicao);
+
+            
+        }
         public IActionResult Index()
         {
             return View(dalInstituicao.ObterInstituicoesClassificadasPorNome().ToList());
@@ -27,42 +41,36 @@ namespace InstituicoesEnsino.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(Instituicao novaInstituicao)
+        public async Task<IActionResult> Create(Instituicao novaInstituicao)
         {
-            dbContext.Instituicoes.Add(novaInstituicao);
-            dbContext.SaveChanges();
+            await dalInstituicao.GravarInstituicao(novaInstituicao);
             return RedirectToAction("Index");
         }
-        public IActionResult Edit(long id)
+        public async Task<IActionResult> Edit(long? id)
         {
-            Instituicao instituicao = dbContext.Instituicoes.Where(i => i.InstituicaoID == id).First();
-            return View(instituicao);
+            return await ObterInstituicaoPorId(id);
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit(Instituicao instituicao)
+        public async Task<IActionResult> Edit(Instituicao instituicao)
         {
-            dbContext.Instituicoes.Update(instituicao);
-            dbContext.SaveChanges();
+            await dalInstituicao.GravarInstituicao(instituicao);
             return RedirectToAction("Index");
         }
-        public IActionResult Delete(long id)
+        public async Task<IActionResult> Delete(long? id)
         {
-            Instituicao instituicao = dbContext.Instituicoes.Where(i => i.InstituicaoID == id).First();
-            return View(instituicao);
+            return await ObterInstituicaoPorId(id);
         }
         [HttpPost]
-        public IActionResult Delete(Instituicao instituicao)
+        public async Task<IActionResult> Delete(Instituicao instituicao)
         {
-            dbContext.Instituicoes.Remove(instituicao);
-            dbContext.SaveChanges();
+            await dalInstituicao.EliminarInstituicaoPorId((long)instituicao.InstituicaoID);
             TempData["Message"] = "Instituição " + instituicao.Nome.ToUpper() + " foi removida";
             return RedirectToAction("Index");
         }
-        public IActionResult Details(long id)
+        public async Task<IActionResult> Details(long? id)
         {
-            Instituicao inst = dbContext.Instituicoes.Include(d=>d.Departamentos).SingleOrDefault(i => i.InstituicaoID == id);
-            return View(inst);
+            return await ObterInstituicaoPorId(id);
         }
     }
 }
