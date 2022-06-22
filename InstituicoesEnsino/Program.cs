@@ -24,7 +24,6 @@ namespace InstituicoesEnsino
                 try
                 {
                     var context = services.GetRequiredService<Context>();
-                    ContextInitializer.InicializarBancodeDados(context);
                 }
                 catch (Exception ex)
                 {
