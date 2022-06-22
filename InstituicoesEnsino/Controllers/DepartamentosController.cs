@@ -12,12 +12,20 @@ namespace InstituicoesEnsino.Controllers
 {
     public class DepartamentosController : Controller
     {
-        private Context dbContext;
         private DepartamentoDAL departamentoDal;
+        private InstituicaoDAL instituicaoDAL;
         public DepartamentosController(Context _dbContext)
         {
-            dbContext = _dbContext;
             departamentoDal = new DepartamentoDAL(_dbContext);
+            instituicaoDAL = new InstituicaoDAL(_dbContext);
+        }
+        private async Task<IActionResult> ConsultarDepartamentoPorID(long? id)
+        {
+            if (id == null)
+                return NotFound();
+            var depto = await departamentoDal.ObterDepartamentoPorID((long)id);
+            return View(depto);
+
         }
         public IActionResult Index()
         {
@@ -25,53 +33,46 @@ namespace InstituicoesEnsino.Controllers
         }
         public IActionResult Create()
         {
-            var Instituicoes = dbContext.Instituicoes.OrderBy(c => c.Nome).ToList();
+            var Instituicoes = instituicaoDAL.ObterInstituicoesClassificadasPorNome().ToList();
             Instituicoes.Insert(0, new Instituicao() { Nome = "Selecione a Instituicao" });
             ViewBag.Instituicoes = Instituicoes;
             return View();
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create([Bind("Nome,InstituicaoID")] Departamento departamento)
+        public async Task<IActionResult> Create([Bind("Nome,InstituicaoID")] Departamento departamento)
         {
-            dbContext.Departamentos.Add(departamento);
-            dbContext.SaveChanges();
+            await departamentoDal.GravarDepartamento(departamento);
             return RedirectToAction("Index");
         }
-        public IActionResult Edit(long id)
+        public async Task<IActionResult> Edit(long id)
         {
-            Departamento depto = dbContext.Departamentos.Where(i => i.DepartamentoID == id).First();
-            List<Instituicao> lista = dbContext.Instituicoes.OrderBy(i => i.Nome).ToList();
+            Departamento depto = await departamentoDal.ObterDepartamentoPorID(id);
+            List<Instituicao> lista = instituicaoDAL.ObterInstituicoesClassificadasPorNome().ToList();
             ViewBag.Instituicoes = lista;
             return View(depto);
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit(Departamento departamento)
+        public async Task<IActionResult> Edit(Departamento departamento)
         {
-            dbContext.Departamentos.Update(departamento);
-            dbContext.SaveChanges();
+            await departamentoDal.GravarDepartamento(departamento);
             return RedirectToAction("Index");
         }
-        public IActionResult Details(long id)
+        public async Task<IActionResult> Details(long id)
         {
-            Departamento depto = dbContext.Departamentos.Where(i => i.DepartamentoID == id).First();
-            dbContext.Instituicoes.Where(i => i.InstituicaoID == depto.InstituicaoID).Load();
-            return View(depto);
+            return await ConsultarDepartamentoPorID(id);
+
         }
-        public IActionResult Delete(long id)
+        public async Task<IActionResult> Delete(long id)
         {
-            Departamento depto = dbContext.Departamentos.Where(i => i.DepartamentoID == id).First();
-            dbContext.Instituicoes.Where(i => i.InstituicaoID == depto.InstituicaoID).Load();
-            return View(depto);
+            return await ConsultarDepartamentoPorID(id);
         }
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public IActionResult DeleteConfirmed(long id)
+        public async Task<IActionResult> DeleteConfirmed(long id)
         {
-            Departamento depto = dbContext.Departamentos.Where(i => i.DepartamentoID == id).FirstOrDefault();
-            dbContext.Departamentos.Remove(depto);
-            dbContext.SaveChanges();
+            Departamento depto = await departamentoDal.ExcluirDepartamento(id);
             TempData["Message"] = "Departamento " + depto.Nome.ToUpper() + " foi removido";
             return RedirectToAction("Index");
         }
