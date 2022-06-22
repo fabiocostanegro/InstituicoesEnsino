@@ -4,34 +4,22 @@
     ViewData["Title"] = "Details";
     Layout = "~/Views/Shared/_LayoutIES.cshtml";
 }
+@section Styles {
+    <environment include="Development">
+        <link rel="stylesheet" href="~/lib/font-awesome/css/all.css" />
+    </environment>
+    <environment exclude="Development">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/font-awesome.min.css"
+              asp-fallback-href="~/lib/font-awesome/css/all.css"
+              asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
+    </environment>
+}
 
-<h1>Details</h1>
-
-<div>
-    <h4>Departamento</h4>
-    <hr />
-    <dl class="row">
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Nome)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Nome)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.DepartamentoID)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.DepartamentoID)
-        </dd>
-        <dt class="col-sm-2">
-            Instituição
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Instituicao.Nome)
-        </dd>
-    </dl>
-</div>
-<div>
-    @Html.ActionLink("Edit", "Edit", new {  id = Model.DepartamentoID  }) |
-    <a asp-action="Index">Back to List</a>
+<div class="card-block">
+    <div class="card-header text-white bg-secondary text-center h1">Exibindo uma departamento existente</div>
+    @{ await Html.RenderPartialAsync("~/Views/Departamentos/_PartialDetailsContentCard.cshtml", Model);}
+    <div>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.DepartamentoID }) |
+        <a asp-action="Index">Back to List</a>
+    </div>
 </div>
