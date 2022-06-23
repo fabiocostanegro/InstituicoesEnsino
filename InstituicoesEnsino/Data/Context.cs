@@ -14,7 +14,7 @@ namespace InstituicoesEnsino.Data
         public DbSet<Departamento> Departamentos { get; set; }
         public DbSet<Curso> Cursos { get; set; }
         public DbSet<Disciplina> Disciplinas { get; set; }
-        public DbSet<Academico> Academicos { get; set; }
+        public DbSet<Academico> Academicos { get; set; } 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
