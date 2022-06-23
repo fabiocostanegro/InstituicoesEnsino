@@ -4,14 +4,16 @@ using InstituicoesEnsino.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace InstituicoesEnsino.Migrations
 {
     [DbContext(typeof(Context))]
-    partial class ContextModelSnapshot : ModelSnapshot
+    [Migration("20220622224954_CursoDisciplina")]
+    partial class CursoDisciplina
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -105,27 +107,6 @@ namespace InstituicoesEnsino.Migrations
                     b.HasKey("InstituicaoID");
 
                     b.ToTable("Instituicoes");
-                });
-
-            modelBuilder.Entity("Modelo.Discente.Academico", b =>
-                {
-                    b.Property<long?>("AcademicoID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .UseIdentityColumn();
-
-                    b.Property<DateTime?>("Nascimento")
-                        .IsRequired()
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("RegistroAcademico")
-                        .IsRequired()
-                        .HasMaxLength(10)
-                        .HasColumnType("nvarchar(10)");
-
-                    b.HasKey("AcademicoID");
-
-                    b.ToTable("Academicos");
                 });
 
             modelBuilder.Entity("Modelo.Cadastros.Curso", b =>
