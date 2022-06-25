@@ -27,7 +27,7 @@
 }
 
 <div class="card-block">
-    <div class="card-header text-white bg-primary text-center h1">Instituições Registradas</div>
+    <div class="card-header text-white bg-primary text-center h1">Departamento @Html.Label((string)ViewBag.NomeDepartamento) -  Cursos Registrados</div>
     <div class="card-body">
         <table class="table">
             <thead>
@@ -68,7 +68,7 @@
         </table>
     </div>
     <div class="card-footer bg-success text-center">
-        <a asp-action="Create" asp-controller="Cursos" class="btn-success">Criar novo curso</a>
+        @Html.ActionLink("Criar novo curso", "Create","Cursos",new { idDepto = ViewBag.Id} )
     </div>
 </div>
 

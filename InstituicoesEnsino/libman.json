@@ -8,10 +8,6 @@
       "destination": "wwwroot/lib/bootstrap/"
     },
     {
-      "library": "jquery@3.5.1",
-      "destination": "wwwroot/lib/jquery/"
-    },
-    {
       "library": "jquery-validate@1.19.1",
       "destination": "wwwroot/lib/jquery-validate/"
     },
@@ -26,6 +22,10 @@
     {
       "library": "popper.js@2.11.5",
       "destination": "wwwroot/lib/popper.js/"
+    },
+    {
+      "library": "jquery@3.6.0",
+      "destination": "wwwroot/lib/jquery/"
     }
   ]
 }

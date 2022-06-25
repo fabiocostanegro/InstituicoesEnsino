@@ -15,9 +15,10 @@ namespace InstituicoesEnsino.Data.DAL.Cadastros
         {
             contexto = dbContext;
         }
-        public IQueryable<Curso> ConsultarCursos()
+        public IQueryable<Curso> ConsultarCursosPorDepartamento(long idDepartamento)
         {
-            return contexto.Cursos.Include(d => d.Departamento);
+            IQueryable<Curso> cursos = contexto.Cursos.Where(i => i.DepartamentoID == idDepartamento).Include(d => d.Departamento);
+            return cursos;
         }
         public async Task<Curso> GravarCurso(Curso curso)
         {
