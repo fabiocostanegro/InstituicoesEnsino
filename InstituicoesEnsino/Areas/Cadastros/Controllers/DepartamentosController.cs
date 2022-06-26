@@ -7,9 +7,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using InstituicoesEnsino.Data.DAL.Cadastros;
+using Microsoft.AspNetCore.Authorization;
 
-namespace InstituicoesEnsino.Controllers
+namespace InstituicoesEnsino.Areas.Cadastros.Controllers
 {
+    [Area("Cadastros")]
+    [Authorize]
     public class DepartamentosController : Controller
     {
         private DepartamentoDAL departamentoDal;

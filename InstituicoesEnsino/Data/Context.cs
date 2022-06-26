@@ -1,10 +1,12 @@
 ﻿using Modelo.Cadastros;
 using Microsoft.EntityFrameworkCore;
 using Modelo.Discente;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using InstituicoesEnsino.Models.Infra;
 
 namespace InstituicoesEnsino.Data
 {
-    public class Context: DbContext
+    public class Context: IdentityDbContext<UsuarioDaAplicacao>
     {
         public Context(DbContextOptions<Context> options) :base(options)
         {

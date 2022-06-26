@@ -19,7 +19,7 @@ ss" />
 <div class="card-block">
     <div class="card-header text-white bg-secondary text-center h1">Exibindo uma instituição existente</div>
     @{
-        await Html.RenderPartialAsync("~/Views/Instituicoes/_PartialDetailsContentCard.cshtml", Model); 
+        await Html.RenderPartialAsync("~/Areas/Cadastros/Views/Instituicoes/_PartialDetailsContentCard.cshtml", Model); 
      }
 <div class="card-footer bg-info text-center text-white">
     <a asp-action="Edit" class="btn btn-warning" asp-route-id="@Model.InstituicaoID">Alterar</a> |

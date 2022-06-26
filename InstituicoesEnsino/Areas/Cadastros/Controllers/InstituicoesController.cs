@@ -6,9 +6,12 @@ using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using InstituicoesEnsino.Data.DAL.Cadastros;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 
-namespace InstituicoesEnsino.Controllers
+namespace Areas.Cadastros.Controllers
 {
+    [Area("Cadastros")]
+    [Authorize]
     public class InstituicoesController : Controller
     {
         private Context dbContext;

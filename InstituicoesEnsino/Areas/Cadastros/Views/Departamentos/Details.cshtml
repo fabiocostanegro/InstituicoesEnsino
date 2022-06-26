@@ -17,7 +17,7 @@
 
 <div class="card-block">
     <div class="card-header text-white bg-secondary text-center h1">Exibindo uma departamento existente</div>
-    @{ await Html.RenderPartialAsync("~/Views/Departamentos/_PartialDetailsContentCard.cshtml", Model);}
+    @{ await Html.RenderPartialAsync("~/Areas/Cadastros/Views/Departamentos/_PartialDetailsContentCard.cshtml", Model);}
     <div>
         @Html.ActionLink("Edit", "Edit", new { id = Model.DepartamentoID }) |
         <a asp-action="Index">Back to List</a>

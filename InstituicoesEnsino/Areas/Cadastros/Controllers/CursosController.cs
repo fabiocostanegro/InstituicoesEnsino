@@ -1,5 +1,6 @@
 ﻿using InstituicoesEnsino.Data;
 using InstituicoesEnsino.Data.DAL.Cadastros;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.EntityFrameworkCore;
@@ -9,8 +10,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace InstituicoesEnsino.Controllers
+namespace InstituicoesEnsino.Areas.Cadastros.Controllers
 {
+    [Authorize]
+    [Area("Cadastros")]
     public class CursosController : Controller
     {
         private CursoDAL cursoDAL;
