@@ -1,4 +1,6 @@
-﻿namespace Modelo.Docente
+﻿using Modelo.Cadastros;
+
+namespace Modelo.Docente
 {
     public class CursoProfessor
     {
