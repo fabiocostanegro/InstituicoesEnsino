@@ -41,5 +41,10 @@ namespace InstituicoesEnsino.Data.DAL.Cadastros
             return depto;
 
         }
+        public IQueryable<Departamento> ObterDepartamentosPorInstituicao(long instituicaoID)
+        {
+            var departamentos = dbContext.Departamentos.Where(d => d.InstituicaoID == instituicaoID).OrderBy(d => d.Nome);
+            return departamentos;
+        }
     }
 }
