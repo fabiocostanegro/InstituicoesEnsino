@@ -26,6 +26,7 @@
     <ProjectReference Include="..\Modelo\Modelo.csproj" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Areas\Discente\Views\" />
     <Folder Include="Migrations\" />
   </ItemGroup>
 
