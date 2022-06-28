@@ -35,6 +35,8 @@ namespace InstituicoesEnsino
                 options.AccessDeniedPath = "/Infra/AcessoNegado";
             });
             services.AddControllersWithViews();
+            services.AddSession();
+            services.AddDistributedMemoryCache();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -55,7 +57,7 @@ namespace InstituicoesEnsino
             app.UseStaticFiles();
 
             app.UseRouting();
-
+            app.UseSession();   
             app.UseAuthentication();
             app.UseAuthorization();
 
